@@ -6,9 +6,9 @@
     "print-js": "^1.0.24",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "react-scripts": "1.0.17",
-    "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.76.0"
+    "react-form-inc": "^2.3.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17"
   },
   "scripts": {
     "start": "react-scripts start",
