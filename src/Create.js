@@ -1,63 +1,105 @@
 import React, {Component} from 'react';
 import {Form} from 'react-form-inc';
-
+import Simple from './Simple';
+import { Route } from 'react-router-dom'
 class Create extends Component {
   constructor(props) {
     super()
     this.state = {
-      // fname:"Nir Adler", email:"niradler55@gmail.com", site:"prototypesart.net",
-      // phone:"0525310600", jobTitle:"developer", profile:"nir the developer",
-      // workEx:[{jobTitle:"developer",from:"19 7 88", to:"21 7
-      // 89",description:"Description"}], keySkill:[{description:"Description"}],
-      // edu:[{institute:"developer",from:"19 7 88", to:"21 7
-      // 89",description:"Description"}],
     }
     this.handleSubmit = this
       .handleSubmit
       .bind(this);
+      this.restore = this
+      .restore
+      .bind(this);
   }
+componentWillMount(){
+this.restore();
+}
+save(){
+  try{
+    localStorage.setItem('cv',JSON.stringify(this.state));  
+  }catch(e){ }
+}
+restore(){
+  try{
+    let cv = localStorage.getItem('cv');
+     cv= JSON.parse(cv);
+    if(typeof(cv) === 'object' && cv !==null){
+      this.setState(cv)
+        }else {//not working ?
+          const s = {...this.props.dcv}
+          localStorage.setItem('cv',JSON.stringify({...s})); 
+          this.setState({...s})
+        }
+   }catch(e){
 
+   }
+
+}
   handleSubmit(fs, t) {
     //t = keys: pi, we,ks,edu
 
     if (!fs.isValid) 
       return;
+ 
+      const formState = Object.assign({},fs.formData);
     const state = this.state;
     switch (t) {
       case 'pi':
-        for (const key in fs.formData) {
-          state[key] = fs.formData[key];
+        for (const key in formState) {
+          state[key] = formState[key];
         }
-        this.setState(state);
         break;
       case 'we':
-      debugger;
-      state.workEx=state.workEx ? [...state.workEx]:[];
-      state.workEx.push(fs.formData)
-        this.setState(state);
+      if(!state.workEx){
+        state.workEx=[];
+        state.workEx.push(formState)
+      }else{
+        state.workEx.push(formState)
+      }
         break;
       case 'ks':
-        for (const key in fs.formData) {
-          state[key] = fs.formData[key];
-        }
-        this.setState(state);
+      if(!state.keySkill){
+        state.keySkill=[];
+        state.keySkill.push(formState)
+      }else{
+        state.keySkill.push(formState)
+      }
         break;
       case 'edu':
-        for (const key in fs.formData) {
-          state[key] = fs.formData[key];
-        }
-        this.setState(state);
+      if(!state.edu){
+        state.edu=[];
+        state.edu.push(formState)
+      }else{
+        state.edu.push(formState)
+      }
         break;
       default:
+      debugger;
         break;
     }
-    debugger;
+    this.setState(state);
+    this.save();
+  }
+  reset(){
+    localStorage.setItem('cv',JSON.stringify({}));
+    this.setState({update:Math.random()})//not working ?
+  }
+  print(){
+    
+this.props.history.push('/simple/print')
+  }
+  download(){
+
   }
   render() {
     return (
       <div className="Create container">
-
-        <div className="col-md-6">
+      <div className="col-md-6">
+      
+        <div className="col-md-12">
           <h2>Personal info:</h2>
           <Form
             debug
@@ -206,7 +248,7 @@ class Create extends Component {
           ]}/>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-12">
           <h2>Work expirince:</h2>
           <Form
             className=""
@@ -310,7 +352,7 @@ class Create extends Component {
           ]}/>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-12">
           <h2>Key skills:</h2>
           <Form
             className=""
@@ -347,7 +389,7 @@ class Create extends Component {
           ]}/>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-12">
           <h2>Education:</h2>
           <Form
             className=""
@@ -407,7 +449,7 @@ class Create extends Component {
               InputWrapClass: "form-group ",
               errorClass: 'has-error',
               successClass: 'has-success',
-              rules: 'numeric|required',
+              rules: 'date|required',
               label: {
                 text: "To",
                 props: {
@@ -450,7 +492,13 @@ class Create extends Component {
             }
           ]}/>
         </div>
-        <div className="col-md-12"></div>
+        </div>
+        <div className="col-md-6">
+        <button type="button" className="btn btn-warning" onClick={this.reset.bind(this)}>Reset</button>
+        <button type="button" className="btn btn-warning" onClick={this.download.bind(this)}>Download</button>
+        <button type="button" className="btn btn-warning" onClick={this.print.bind(this)}>Print</button>
+        <Simple cv={this.state} />
+        </div>
       </div>
     );
   }
