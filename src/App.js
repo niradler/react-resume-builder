@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Create from './Create';
-import Simple from './Simple';
+import Simple from './templates/Simple';
 import logo from './logo.svg';
 import {Switch, Route} from 'react-router-dom'
 import './App.css';
@@ -53,6 +53,7 @@ componentWillMount(){
   render() {
     return (
       <div className="App">
+      <div className="text-center"> <img src={logo} className="logo App-logo"/> </div>
         <Switch>
           <Route path='/Create' component={Create}/>
           <Route

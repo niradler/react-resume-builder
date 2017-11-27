@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Form} from 'react-form-inc';
-import Simple from './Simple';
-import { Route } from 'react-router-dom'
+import Simple from './templates/Simple';
+import EduForm from './Forms/EduForm';
+import ProfileForm from './Forms/ProfileForm';
+import SkillForm from './Forms/SkillForm';
+import WorkForm from './Forms/WorkForm';
 class Create extends Component {
   constructor(props) {
     super()
@@ -104,407 +106,34 @@ this.props.history.push('/simple/print')
   }
   render() {
     return (
-      <div className="Create container">
+      <div className="Create ">
       <div className="col-md-6">
-      
-        <div className="col-md-12">
-          <h2>Personal info:</h2>
-          <Form
-            debug
-            className=""
-            OnSubmit={(fs) => this.handleSubmit(fs, 'pi')}
-            btn={{
-            text: "Add",
-            props: {
-              className: "btn btn-info "
-            }
-          }}
-            fields={[
-            {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Full Name",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "fname",
-                type: "text"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Job Title",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "jobTitle",
-                type: "text"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'numeric|required',
-              label: {
-                text: "Phone",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "phone",
-                type: "tel"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'email|required',
-              label: {
-                text: "Email",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "email",
-                type: "email"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Website",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "site",
-                type: "url"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Description",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block pull-left"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "profile",
-                type: "text"
-              }
-            }
-          ]}/>
-        </div>
+      <div className="col-md-6">
+  <ProfileForm handleSubmit={this.handleSubmit}/>
+  </div>
 
-        <div className="col-md-12">
-          <h2>Work expirince:</h2>
-          <Form
-            className=""
-            OnSubmit={(fs) => this.handleSubmit(fs, 'we')}
-            btn={{
-            text: "Add",
-            props: {
-              className: "btn btn-info "
-            }
-          }}
-            fields={[
-            {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Job Title",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "jobTitle",
-                type: "text"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "From",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "from",
-                type: "date"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "To",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "to",
-                type: "date"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Description",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "description",
-                type: "text"
-              }
-            }
-          ]}/>
-        </div>
-
-        <div className="col-md-12">
-          <h2>Key skills:</h2>
-          <Form
-            className=""
-            OnSubmit={(fs) => this.handleSubmit(fs, 'ks')}
-            btn={{
-            text: "Add",
-            props: {
-              className: "btn btn-info "
-            }
-          }}
-            fields={[{
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Skills",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "skill",
-                type: "text"
-              }
-            }
-          ]}/>
-        </div>
-
-        <div className="col-md-12">
-          <h2>Education:</h2>
-          <Form
-            className=""
-            OnSubmit={(fs) => this.handleSubmit(fs, 'edu')}
-            btn={{
-            text: "Add",
-            props: {
-              className: "btn btn-info "
-            }
-          }}
-            fields={[
-            {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Institute",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "institute",
-                type: "text"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "From",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "from",
-                type: "date"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'date|required',
-              label: {
-                text: "To",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "to",
-                type: "date"
-              }
-            }, {
-              InputWrapClass: "form-group ",
-              errorClass: 'has-error',
-              successClass: 'has-success',
-              rules: 'required',
-              label: {
-                text: "Description",
-                props: {
-                  className: "control-label"
-                }
-              },
-              error: {
-                text: "auto",
-                props: {
-                  className: "help-block"
-                }
-              },
-              props: {
-                className: 'form-control input-md',
-                name: "description",
-                type: "text"
-              }
-            }
-          ]}/>
-        </div>
+  <div className="col-md-6 ">
+  <WorkForm handleSubmit={this.handleSubmit}/>
+  </div>
+  <div className="col-md-6">
+  <SkillForm handleSubmit={this.handleSubmit}/>
+  </div>
+  <div className="col-md-12">
+  <hr />
+  </div>
+ 
+  <div className="col-md-6">
+  <EduForm handleSubmit={this.handleSubmit}/>
+  </div>
+  <div className="col-md-12">
+  <hr />
+  </div>
         </div>
         <div className="col-md-6">
+        <div className=" text-center">
         <button type="button" className="btn btn-warning" onClick={this.reset.bind(this)}>Reset</button>
-        <button type="button" className="btn btn-warning" onClick={this.download.bind(this)}>Download</button>
         <button type="button" className="btn btn-warning" onClick={this.print.bind(this)}>Print</button>
+        </div>
         <Simple cv={this.state.cv} update={this.updateKey}/>
         </div>
       </div>

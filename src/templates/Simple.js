@@ -8,9 +8,7 @@ const key = this.props.match? this.props.match.params ?this.props.match.params.a
       case 'print':
       window.print();
         break;
-        case 'download':
-        // printJS('top', 'html');
-          break;
+
       default:
         break;
     }
