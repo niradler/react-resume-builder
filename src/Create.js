@@ -6,6 +6,7 @@ class Create extends Component {
   constructor(props) {
     super()
     this.state = {
+      cv:{}
     }
     this.handleSubmit = this
       .handleSubmit
@@ -19,7 +20,7 @@ this.restore();
 }
 save(){
   try{
-    localStorage.setItem('cv',JSON.stringify(this.state));  
+    localStorage.setItem('cv',JSON.stringify(this.state.cv));  
   }catch(e){ }
 }
 restore(){
@@ -27,11 +28,11 @@ restore(){
     let cv = localStorage.getItem('cv');
      cv= JSON.parse(cv);
     if(typeof(cv) === 'object' && cv !==null){
-      this.setState(cv)
+      this.setState({cv:{...cv}})
         }else {//not working ?
           const s = {...this.props.dcv}
           localStorage.setItem('cv',JSON.stringify({...s})); 
-          this.setState({...s})
+          this.setState({cv:{...s}})
         }
    }catch(e){
 
@@ -41,51 +42,58 @@ restore(){
   handleSubmit(fs, t) {
     //t = keys: pi, we,ks,edu
 
-    if (!fs.isValid) 
-      return;
+    // if (!fs.isValid) 
+    //   return;
  
       const formState = Object.assign({},fs.formData);
-    const state = this.state;
+      for (const key in formState) {
+        if (formState.hasOwnProperty(key)) {
+          if(!(formState[key].length >0)) delete formState[key]  
+        }
+      }
+    const cv = this.state.cv;
     switch (t) {
       case 'pi':
         for (const key in formState) {
-          state[key] = formState[key];
+          cv[key] = formState[key];
         }
         break;
       case 'we':
-      if(!state.workEx){
-        state.workEx=[];
-        state.workEx.push(formState)
+      if(!cv.workEx){
+        cv.workEx=[];
+        cv.workEx.push(formState)
       }else{
-        state.workEx.push(formState)
+        cv.workEx.push(formState)
       }
         break;
       case 'ks':
-      if(!state.keySkill){
-        state.keySkill=[];
-        state.keySkill.push(formState)
+      if(!cv.keySkill){
+        cv.keySkill=[];
+        cv.keySkill.push(formState)
       }else{
-        state.keySkill.push(formState)
+        cv.keySkill.push(formState)
       }
         break;
       case 'edu':
-      if(!state.edu){
-        state.edu=[];
-        state.edu.push(formState)
+      if(!cv.edu){
+        cv.edu=[];
+        cv.edu.push(formState)
       }else{
-        state.edu.push(formState)
+        cv.edu.push(formState)
       }
         break;
       default:
       debugger;
         break;
     }
-    this.setState(state);
+    this.setState({cv});
     this.save();
   }
   reset(){
     localStorage.setItem('cv',JSON.stringify({}));
-    this.setState({update:Math.random()})//not working ?
+    this.setState({cv:{}})//not working ?
+    this.updateKey = Math.random();
+    debugger;
   }
   print(){
     
@@ -497,7 +505,7 @@ this.props.history.push('/simple/print')
         <button type="button" className="btn btn-warning" onClick={this.reset.bind(this)}>Reset</button>
         <button type="button" className="btn btn-warning" onClick={this.download.bind(this)}>Download</button>
         <button type="button" className="btn btn-warning" onClick={this.print.bind(this)}>Print</button>
-        <Simple cv={this.state} />
+        <Simple cv={this.state.cv} update={this.updateKey}/>
         </div>
       </div>
     );
